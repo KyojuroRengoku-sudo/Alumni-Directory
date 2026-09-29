@@ -1,0 +1,16 @@
+# api/.htaccess
+#
+# Place this file at api/.htaccess (rename to .htaccess).
+#
+# 1. Block directory listing so browsing /api/ returns 403, not a file list.
+# 2. Deny direct browser access to db.php — it contains DB credentials and
+#    should only ever be require()'d by other PHP scripts.
+# 3. Deny direct access to any file whose name starts with "require_" (e.g.
+#    require_staff.php) — these are internal guards, not public endpoints.
+
+Options -Indexes
+
+# Block db.php and internal-only files from being hit directly
+<FilesMatch "^(db\.php|require_.+\.php)$">
+    Require all denied
+</FilesMatch>
